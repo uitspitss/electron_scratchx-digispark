@@ -54,8 +54,4 @@ macOSでは、`DigiUSB.h`は`/Users/username/Library/Arduino**/packages/digistum
 + 上記のappもしくはプログラムを立ち上げたら、プログラムで表示されているURLにウェブブラウザ(chrome推奨)でアクセスする。
 + ScratchX上で、下図のブロックを実行すると、DigiRGBやDigiLEDのLEDが指定した色で光る。
 
-<<<<<<< HEAD
 ![esd_block.jpg](images/esd_block.jpg)
-=======
-[!esd_block.jpg](images/esd_block.jpg)
->>>>>>> b3a0f616db2b8ca84dbc205dbabb2eda2c1a558d
