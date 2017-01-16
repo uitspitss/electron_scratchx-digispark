@@ -66,7 +66,7 @@ exports.sendRGB = (rgb) => {
             process.stdout.write(`G:${value}(${Math.round(value/2.55)}%), `)
             break
           case 3:
-            console.log(`B:${value}(${Math.round(value/2.55)}%)`)
+            process.stdout.write(`B:${value}(${Math.round(value/2.55)}%)\n`)
             break
           }
           cnt += 1
