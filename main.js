@@ -16,7 +16,7 @@ const ds = require('./digispark.js')
 let ds_flag
 
 
-const PORT = 9911
+const PORT = 40410
 require('http').createServer((req, res) => {
   console.log(req.url)
   let urlObj = url.parse(req.url, true)
