@@ -34,9 +34,9 @@ require('http').createServer((req, res) => {
     req.on('end', () => {
       let q = qs.parse(body)
       let r, g, b
-      r = parseInt(q['red'])
-      g = parseInt(q['green'])
-      b = parseInt(q['blue'])
+      r = Math.round(q['red'])
+      g = Math.round(q['green'])
+      b = Math.round(q['blue'])
       // check whether digits or others
       if (typeof r == "number" && typeof g == "number" && typeof b == "number") {
         r = r < 0 ? 0 : r
@@ -46,10 +46,6 @@ require('http').createServer((req, res) => {
         r = r > 255 ? 255 : r
         g = g > 255 ? 255 : g
         b = b > 255 ? 255 : b
-
-        r = parseInt(r)
-        g = parseInt(g)
-        b = parseInt(b)
 
         ds.sendRGB([r, g, b])
         win.webContents.insertCSS(
