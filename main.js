@@ -43,13 +43,13 @@ require('http').createServer((req, res) => {
         g = g < 0 ? 0 : g
         b = b < 0 ? 0 : b
 
-        r = r > 100 ? 100 : r
-        g = g > 100 ? 100 : g
-        b = b > 100 ? 100 : b
+        r = r > 255 ? 255 : r
+        g = g > 255 ? 255 : g
+        b = b > 255 ? 255 : b
 
-        r = parseInt(r * 2.55)
-        g = parseInt(g * 2.55)
-        b = parseInt(b * 2.55)
+        r = parseInt(r)
+        g = parseInt(g)
+        b = parseInt(b)
 
         ds.sendRGB([r, g, b])
         win.webContents.insertCSS(
@@ -58,11 +58,6 @@ require('http').createServer((req, res) => {
                     ("0" + g.toString(16)).slice(-2) +
                     ("0" + b.toString(16)).slice(-2) + "}"
         )
-        // console.log("body {background: #" +
-        //             ("0" + r.toString(16)).slice(-2) +
-        //             ("0" + g.toString(16)).slice(-2) +
-        //             ("0" + b.toString(16)).slice(-2) +
-        //             "}")
       } else {
         console.error("NOT getting value of rgb")
       }

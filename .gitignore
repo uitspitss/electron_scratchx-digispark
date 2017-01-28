@@ -2,7 +2,8 @@
 # Created by https://www.gitignore.io/api/macos,linux,node,git
 
 ###
-electron_sx-ds*
+esd-*
+lecture
 
 ### macOS ###
 *.DS_Store
