@@ -43,14 +43,31 @@
         console.log("post successed")
       }
     });
-
     console.log("red:" + red + " green:" + green + " blue:" + blue);
+  };
+
+  ext.blinkWhite = function(white){
+    $.ajax({
+      type: "POST",
+      url: "http://localhost:9911/blink",
+      dataType: "json",
+      data: {
+        'red': white,
+        'green': white,
+        'blue': white
+      },
+      success: res => {
+        console.log("post successed")
+      }
+    });
+    console.log("red:" + white + " green:" + white + " blue:" + white);
   };
 
   var descriptor = {
     blocks: [
-      ["",  "赤%n % 緑%n % 青%n % の明るさで点灯", "blink",
-       "100", "100", "100"]
+      ["",  "赤%n, 緑%n, 青%n  で点灯", "blink",
+       "100", "100", "100"],
+      ["",  "白%n で点灯", "blinkWhite", "100"]
     ],
     menus: {}
   };
