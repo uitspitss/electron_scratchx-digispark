@@ -17,7 +17,7 @@ const qs = require('querystring')
 const ds = require('./digispark.js')
 let ds_flag
 
-const PORT = 9911
+const PORT = 40410
 require('http').createServer((req, res) => {
   let urlObj = url.parse(req.url, true)
   if (urlObj.pathname == "/myscratch.js") {
@@ -43,13 +43,9 @@ require('http').createServer((req, res) => {
         g = g < 0 ? 0 : g
         b = b < 0 ? 0 : b
 
-        r = r > 100 ? 100 : r
-        g = g > 100 ? 100 : g
-        b = b > 100 ? 100 : b
-
-        r = Math.round(r * 2.55)
-        g = Math.round(g * 2.55)
-        b = Math.round(b * 2.55)
+        r = r > 255 ? 255 : r
+        g = g > 255 ? 255 : g
+        b = b > 255 ? 255 : b
 
         ds.sendRGB([r, g, b])
       } else {
