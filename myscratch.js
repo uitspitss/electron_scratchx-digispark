@@ -32,7 +32,7 @@
   ext.blink = function(red, green, blue){
     $.ajax({
       type: "POST",
-      url: "http://localhost:9911/blink",
+      url: "http://localhost:40410/blink",
       dataType: "json",
       data: {
         'red': red,
@@ -49,7 +49,7 @@
   ext.blinkWhite = function(white){
     $.ajax({
       type: "POST",
-      url: "http://localhost:9911/blink",
+      url: "http://localhost:40410/blink",
       dataType: "json",
       data: {
         'red': white,
