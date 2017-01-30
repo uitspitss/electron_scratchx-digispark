@@ -4,6 +4,7 @@
 ###
 esd-*
 lecture
+node.exe
 
 ### macOS ###
 *.DS_Store
