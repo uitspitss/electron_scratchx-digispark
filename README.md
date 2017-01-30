@@ -63,4 +63,6 @@ macOSでは、`DigiUSB.h`は`/Users/username/Library/Arduino**/packages/digistum
 
 ## 参考:Scratch
 ScratchXはオンラインのScratch上で拡張機能を使えるようにした実験的なプラットフォーム。
-本家Scratchでは、プログラミングでアニメーションが作れたりするので、Scratch自体の使い方などが知りたければ、[本家Scratch](https://scratch.mit.edu/)を参照してみると良い。
+本家Scratchでは、プログラミングでアニメーションが作れたりするので、Scratch自体の使い方などが知りたければ、[Scratch](https://scratch.mit.edu/)を参照してみると良い。
+
+
