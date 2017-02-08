@@ -1,3 +1,9 @@
+rem=0;/*
+node %~0 %*
+pause
+exit
+*/
+
 'use strict'
 
 // check versions
@@ -40,6 +46,7 @@ server.on('request', (req, res) => {
       server.close();
       req.connection.end();
       req.connection.destroy();
+      // req.connection.end();
     }
 
     let body = "";
