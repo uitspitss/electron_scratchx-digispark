@@ -13,7 +13,7 @@ let ds_flag;
 
 const PORT = 40410;
 let sendCount = 0;
-let timer = new Date().getTime();
+let timer = Date.now();
 
 const server = require('http').createServer();
 
@@ -28,7 +28,7 @@ server.on('request', (req, res) => {
     });
   }
   else if(urlObj.pathname == "/blink" && req.method == "POST"){
-    let now = new Date().getTime();
+    let now = Date.now();
     if(now - timer < 1000){
       sendCount++;
     }else{
@@ -48,12 +48,17 @@ server.on('request', (req, res) => {
     })
     req.on('end', () => {
       let q = qs.parse(body);
-      let r, g, b;
+      let r, g, b, t;
       r = Math.round(q['red']);
       g = Math.round(q['green']);
       b = Math.round(q['blue']);
+      t = +q['time'];
       // check whether digits or others
-      if (typeof r == "number" && typeof g == "number" && typeof b == "number") {
+      if (now - t < 1000
+          && typeof r == "number"
+          && typeof g == "number"
+          && typeof b == "number")
+      {
         r = r < 0 ? 0 : r;
         g = g < 0 ? 0 : g;
         b = b < 0 ? 0 : b;
@@ -64,7 +69,7 @@ server.on('request', (req, res) => {
 
         ds.sendRGB([r, g, b]);
       } else {
-        console.error("NOT getting value of rgb");
+        console.error("bad query");
       }
     });
     res.end();

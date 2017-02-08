@@ -37,7 +37,8 @@
       data: {
         'red': red,
         'green': green,
-        'blue': blue
+        'blue': blue,
+        'time': Date.now()
       },
       success: res => {
         console.log("post successed")
@@ -54,7 +55,8 @@
       data: {
         'red': white,
         'green': white,
-        'blue': white
+        'blue': white,
+        'time': Date.now()
       },
       success: res => {
         console.log("post successed")
