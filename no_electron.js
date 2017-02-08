@@ -35,12 +35,6 @@ server.on('request', (req, res) => {
       timer = now;
       sendCount = 0;
     }
-    if(sendCount >= 10){
-      console.error("Too many frequencies blink()");
-      server.close();
-      req.connection.end();
-      req.connection.destroy();
-    }
 
     let body = "";
     req.on('data', data => {
@@ -48,13 +42,12 @@ server.on('request', (req, res) => {
     })
     req.on('end', () => {
       let q = qs.parse(body);
-      let r, g, b, t;
+      let r, g, b;
       r = Math.round(q['red']);
       g = Math.round(q['green']);
       b = Math.round(q['blue']);
-      t = +q['time'];
       // check whether digits or others
-      if (now - t < 1000
+      if (sendCount < 10
           && typeof r == "number"
           && typeof g == "number"
           && typeof b == "number")
@@ -68,6 +61,12 @@ server.on('request', (req, res) => {
         b = b > 255 ? 255 : b;
 
         ds.sendRGB([r, g, b]);
+        // win.webContents.insertCSS(
+        //   "body {background: #" +
+        //     ("0" + r.toString(16)).slice(-2) +
+        //     ("0" + g.toString(16)).slice(-2) +
+        //     ("0" + b.toString(16)).slice(-2) + "}"
+        // );
       } else {
         console.error("bad query");
       }
