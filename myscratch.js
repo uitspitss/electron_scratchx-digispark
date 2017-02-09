@@ -66,8 +66,8 @@
   var descriptor = {
     blocks: [
       ["",  "赤%n, 緑%n, 青%n  で点灯", "blink",
-       "100", "100", "100"],
-      ["",  "白%n で点灯", "blinkWhite", "100"]
+       100, 100, 100],
+      ["",  "白%n で点灯", "blinkWhite", 100]
     ],
     menus: {}
   };
