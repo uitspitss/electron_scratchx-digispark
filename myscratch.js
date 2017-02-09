@@ -25,8 +25,8 @@
   };
 
   ext._getStatus = function(){
-    if(!device) return {status: 1, msg: 'digiUSB disconnected'};
-    return {status: 2, msg: 'digiUSB connectd'};
+    if(!device) return {status: 1, msg: 'DigiUSB disconnected'};
+    return {status: 2, msg: 'DigiUSB connectd'};
   };
 
   ext.blink = function(red, green, blue){
@@ -73,6 +73,6 @@
   };
 
   var hid_info = {type: 'hid', vendor: 0x16c0, product: 0x05df};
-  console.log(ScratchExtensions.register('DigisparkRGB', descriptor, ext, hid_info));
+  console.log(ScratchExtensions.register('DigiUSB', descriptor, ext, hid_info));
 })({});
 
