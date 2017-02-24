@@ -3,26 +3,26 @@
 // check versions
 // console.dir(process.versions)
 
-const {app, BrowserWindow, electron, clipboard} = require('electron')
+const {app, BrowserWindow, electron, clipboard} = require('electron');
 
-let win
+let win;
 
-const fs = require('fs')
+const fs = require('fs');
 
-const url = require('url')
-const qs = require('querystring')
+const url = require('url');
+const qs = require('querystring');
 
-const ds = require('./digispark.js')
-let ds_flag
+const ds = require('./digispark.js');
+let ds_flag;
 
+app.on('ready', createWindow);
 
 const PORT = 40410;
 let sendCount = 0;
 let timer = new Date().getTime();
 
 const server = require('http').createServer();
-
-server.listen(PORT, createWindow);
+server.listen(PORT);
 
 server.on('request', (req, res) => {
   let urlObj = url.parse(req.url, true);
@@ -65,7 +65,7 @@ server.on('request', (req, res) => {
         g = g > 255 ? 255 : g;
         b = b > 255 ? 255 : b;
 
-        ds.sendRGB([r, g, b]);
+        if(ds_flag) ds.sendRGB([r, g, b]);
         win.webContents.insertCSS(
           "body {background: #" +
             ("0" + r.toString(16)).slice(-2) +
@@ -89,42 +89,39 @@ function createWindow() {
     width: 200,
     height: 200,
     title: "scratchX -> DigisparkRGB"
-  })
+  });
 
-  win.loadURL(`file://${__dirname}/index.html`)
+  win.loadURL(`file://${__dirname}/index.html`);
   // win.webContents.openDevTools()
 
   win.webContents.on('did-finish-load', () => {
     if (ds.getDevice()){
-      ds_flag = true
-      ds.open()
+      ds_flag = true;
+      ds.open();
       win.webContents.executeJavaScript(
         "document.getElementById('ds-status').innerHTML='Digispark<br>CONNECTED'"
-      )
-      win.webContents.insertCSS("body {background: #2ba6a6}")
+      );
+      win.webContents.insertCSS("body {background: #2ba6a6}");
       win.webContents.executeJavaScript(
         `document.getElementById('ds-url').innerHTML='URL:<br>'
           + 'http://scratchx.org/?url=http://localhost:${PORT}/myscratch.js'
-          + '<br> copied URL to clipboard'`)
-      clipboard.writeText(`http://scratchx.org/?url=http://localhost:${PORT}/myscratch.js`)
+          + '<br> copied URL to clipboard'`);
+      clipboard.writeText(`http://scratchx.org/?url=http://localhost:${PORT}/myscratch.js`);
     } else {
-      ds_flag = false
+      ds_flag = false;
       win.webContents.executeJavaScript(
         "document.getElementById('ds-status').innerHTML='Digispark<br>NOT FOUND'"
-      )
-      console.log("NOT FOUND Digispark!")
-      win.webContents.insertCSS("body {background: #ff4242}")
+      );
+      console.log("NOT FOUND Digispark!");
+      win.webContents.insertCSS("body {background: #ff4242}");
     }
-  })
+  });
 
   win.on('closed', () => {
-    if(ds_flag)
-      ds.close()
-    win = null
-  })
+    if(ds_flag) ds.close();
+    win = null;
+  });
 }
-
-app.on('ready', createWindow)
 
 // app.on('window-all-closed', () => {
 //   if (process.platform !== 'darwin') {

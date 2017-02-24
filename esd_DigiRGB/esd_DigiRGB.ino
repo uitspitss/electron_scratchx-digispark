@@ -2,12 +2,12 @@
 #define USB_CFG_DEVICE_NAME_LEN 9
 #include <DigiUSB.h>
 byte in = 0;
-int blue = 0;
-int red = 0;
-int green = 0;
+int b = 0;
+int r = 0;
+int g = 0;
 int next = 0;
-unsigned long breakTime = 0;
-int waitTime = 10; // [sec]
+unsigned long bt = 0; // break time [sec]
+int wt = 10; // wait time [sec]
 
 void setup() {
   DigiUSB.begin();
@@ -20,42 +20,41 @@ void loop() {
   setBlue();
   DigiUSB.refresh();
   setBlue();
-  if (DigiUSB.available() > 0) {
-    breakTime = millis();
-      in = 0;
-      in = DigiUSB.read();
-    if (next == 0){
+  if(DigiUSB.available() > 0){
+    bt = millis();
+    in = 0;
+    in = DigiUSB.read();
+    if (n == 0){
       if(in == 115){
-        next = 1;
+        n = 1;
         DigiUSB.println("Start");
       }
     }
-    else if (next == 1){
-      red = in;
-      DigiUSB.print("Red ");
+    else if (n == 1){
+      r = in;
+      DigiUSB.print("R:");
       DigiUSB.println(in,DEC);
-      next = 2;
+      n = 2;
     }
-    else if (next == 2){
-      green = in;
-      DigiUSB.print("Green ");
+    else if(n == 2){
+      g = in;
+      DigiUSB.print("G:");
       DigiUSB.println(in,DEC);
-      next = 3;
+      n = 3;
     }
-    else if (next == 3){
-      blue = in;
-      DigiUSB.print("Blue ");
+    else if(n == 3){
+      b = in;
+      DigiUSB.print("B:");
       DigiUSB.println(in,DEC);
-      next = 0;
+      n = 0;
     }
-  } else {
-    if(millis() - breakTime > waitTime * 1000){
-      /* loop function */
-      red += 1;
-      int _r = random(0,100); int _g = random(0,100); int _b = random(0,100);
-      red = _r; green = _g; blue = _b;
-      DigiUSB.delay(3000);
-    }
+  }
+  if(millis() - bt > wt * 1000){
+    /* loop function */
+    r = random(0,100);
+    g = random(0,100);
+    b = random(0,100);
+    DigiUSB.delay(3000);
   }
   analogWrite(0,red);
   analogWrite(1,green);
@@ -63,22 +62,22 @@ void loop() {
 }
 
 void setBlue(){
-  if(blue == 0){
+  if(b == 0){
     digitalWrite(2,LOW);
     return;
   }
-  else if(blue == 255){
+  else if(b == 255){
     digitalWrite(2,HIGH);
     return;
   }
 
   // On period
-  for (int x=0;x<blue;x++){
+  for (int x=0;x<b;x++){
     digitalWrite(2,HIGH);
   }
 
   // Off period
-  for(int x=0;x<(255-blue);x++){
+  for(int x=0;x<(255-b);x++){
     digitalWrite(2,LOW);
   }
 }

@@ -60,7 +60,7 @@ server.on('request', (req, res) => {
         g = g > 255 ? 255 : g;
         b = b > 255 ? 255 : b;
 
-        ds.sendRGB([r, g, b]);
+        if(ds_flag) ds.sendRGB([r, g, b]);
         // win.webContents.insertCSS(
         //   "body {background: #" +
         //     ("0" + r.toString(16)).slice(-2) +
