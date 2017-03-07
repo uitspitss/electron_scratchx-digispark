@@ -38,7 +38,7 @@ void loop(){
     else if(n == 1){
       r = in;
       DigiUSB.print("R:");
-      DigiUSB.println(in,DEC);
+      DigiUSB.println(in,DEC);  //
       n = 2;
     }
     else if(n == 2){
@@ -75,10 +75,10 @@ void loop(){
     // b = getRandom() % 256;
     // DigiUSB.print("random:");
     // DigiUSB.println(getRandom());
-    // b = b==50 ? 0 : 50;
-    // pixels.setPixelColor(0, pixels.Color(r, g, b));
-    // pixels.show();
-    // DigiUSB.delay(3000 - 100);
+    b = b==50 ? 0 : 50;
+    pixels.setPixelColor(0, pixels.Color(r, g, b));
+    pixels.show();
+    DigiUSB.delay(3000 - 100);
   }
   DigiUSB.delay(100); // Empirically, 100 is the shortest delay sec
 }
